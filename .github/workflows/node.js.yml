@@ -4,12 +4,6 @@ on:
   push:
     branches: [ "main" ]
     
-env: 
-        URL: ${{ secrets.URL }}
-        PORT: ${{ secrets.PORT }}
-        CREDENTIALS: ${{ secrets.CREDENTIALS }}
-        TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
-
 jobs:
   build:
 
