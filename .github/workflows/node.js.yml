@@ -20,7 +20,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: server/package-lock.json
+        cache-dependency-path: |
+          client/package-lock.json
+          server/package-lock.json
         
     - name: Install dependencies for client
       run: |
@@ -31,6 +33,8 @@ jobs:
       run: |
         cd client
         npm run build
+      env:
+        URL: ${{ secrets.URL }}
 
     - name: Deploy React app to /var/www/html
       run: |
@@ -41,6 +45,11 @@ jobs:
       run: |
         cd server
         npm ci
+      env:
+        URL: ${{ secrets.URL }}
+        PORT: ${{ secrets.PORT }}
+        CREDENTIALS: ${{ secrets.CREDENTIALS }}
+        TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
 
     - name: Restart Express server with PM2
       run: |
