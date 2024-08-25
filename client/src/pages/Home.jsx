@@ -6,14 +6,14 @@ import RequestTable from "@/components/features/RequestTable";
 
 import { Toaster } from "@/components/ui/toaster";
 
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect(`${import.meta.env.URL}`);
 
 export default function Home() {
   const [books, setBooks] = useState([]);
 
   const getRequests = async () => {
     try {
-      const response = await fetch("http://localhost:3000/requests");
+      const response = await fetch(`${import.meta.env.URL}/requests`);
       const data = await response.json();
       setBooks(data);
     } catch (err) {
