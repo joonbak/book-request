@@ -12,7 +12,7 @@ app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: process.env.URL,
   },
 });
 
@@ -22,7 +22,7 @@ const tokenSecret = process.env.TOKEN_SECRET;
 
 let books = [];
 
-app.post("/login", (req, res) => {
+app.post("/api/login", (req, res) => {
   const { password } = req.body;
   if (password === credentials) {
     const token = jwt.sign({ user: "koorong" }, tokenSecret, {
@@ -34,7 +34,7 @@ app.post("/login", (req, res) => {
   }
 });
 
-app.get("/requests", (req, res) => {
+app.get("/api/requests", (req, res) => {
   res.json(books);
 });
 
