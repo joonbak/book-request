@@ -20,24 +20,17 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-
-    - name: List directory contents
-      run: |
-        echo "Listing contents of the root directory:"
-        ls -la
-        echo "Listing contents of the client directory:"
-        ls -la client
-        echo "Listing contents of the server directory:"
-        ls -la server
-
+        cache-dependency-path: server/package-lock.json
         
     - name: Install dependencies for client
-      working-directory: client
-      run: npm ci
+      run: |
+        cd client
+        npm ci
 
     - name: Build React app
-      working-directory: client
-      run: npm run build
+      run: |
+        cd client
+        npm run build
 
     - name: Deploy React app to /var/www/html
       run: |
@@ -45,9 +38,11 @@ jobs:
         sudo cp -R client/dist/* /var/www/html/
 
     - name: Install dependencies for server
-      working-directory: server
-      run: npm ci
+      run: |
+        cd server
+        npm ci
 
     - name: Restart Express server with PM2
       run: |
         pm2 restart /home/ubuntu/book-request/server
+
