@@ -3,6 +3,12 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
+    
+env: 
+        URL: ${{ secrets.URL }}
+        PORT: ${{ secrets.PORT }}
+        CREDENTIALS: ${{ secrets.CREDENTIALS }}
+        TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
 
 jobs:
   build:
@@ -26,8 +32,6 @@ jobs:
       run: |
         cd client
         npm ci
-      env: 
-        URL: ${{ vars.URL }}
 
     - name: Build React app
       run: |
@@ -43,11 +47,6 @@ jobs:
       run: |
         cd server
         npm ci
-      env: 
-        URL: ${{ vars.URL }}
-        PORT: ${{ vars.PORT }}
-        CREDENTIALS: ${{ secrets.CREDENTIALS }}
-        TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
 
     - name: Restart Express server with PM2
       run: |
