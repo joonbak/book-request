@@ -12,13 +12,13 @@ app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: `${process.env.URL}`,
+    origin: process.env.URL,
   },
 });
 
 const PORT = process.env.PORT;
-const credentials = `${process.env.CREDENTIALS}`;
-const tokenSecret = `${process.env.TOKEN_SECRET}`;
+const credentials = process.env.CREDENTIALS;
+const tokenSecret = process.env.TOKEN_SECRET;
 
 let books = [];
 
