@@ -28,7 +28,7 @@ jobs:
       run: |
         cd client
         npm ci
-        touch .env
+        rm -f .env
         echo "URL: ${{ secrets.URL }}" > .env
 
     - name: Build React app
@@ -45,11 +45,11 @@ jobs:
       run: |
         cd server
         npm ci
-        touch .env
+        rm -f .env
         echo "URL: ${{ secrets.URL }}" > .env
-        echo "PORT: ${{ secrets.PORT }}" > .env
-        echo "CREDENTIALS: ${{ secrets.CREDENTIALS }}" > .env
-        echo "TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}" > .env
+        echo "PORT: ${{ secrets.PORT }}" >> .env
+        echo "CREDENTIALS: ${{ secrets.CREDENTIALS }}" >> .env
+        echo "TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}" >> .env
 
     - name: Restart Express server with PM2
       run: |
