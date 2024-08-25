@@ -21,24 +21,21 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install dependencies for client
-      run: |
-        cd book-request/client
-        npm ci
+      working-directory: client
+      run: npm ci
 
     - name: Build React app
-      run: |
-        cd book-request/client
-        npm run build
+      working-directory: client
+      run: npm run build
 
     - name: Deploy React app to /var/www/html
       run: |
         sudo rm -rf /var/www/html/*
-        sudo cp -R book-request/client/dist/* /var/www/html/
+        sudo cp -R client/dist/* /var/www/html/
 
     - name: Install dependencies for server
-      run: |
-        cd book-request/server
-        npm ci
+      working-directory: server
+      run: npm ci
 
     - name: Restart Express server with PM2
       run: |
