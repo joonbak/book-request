@@ -6,7 +6,7 @@ import RequestTable from "@/components/features/RequestTable";
 
 import { Toaster } from "@/components/ui/toaster";
 
-const socket = io.connect(`${import.meta.env.URL}`);
+const socket = io.connect(import.meta.env.URL);
 
 export default function Home() {
   const [books, setBooks] = useState([]);
