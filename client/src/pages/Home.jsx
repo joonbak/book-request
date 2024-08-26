@@ -13,7 +13,7 @@ export default function Home() {
 
   const getRequests = async () => {
     try {
-      const response = await fetch(`${import.meta.env.URL}/requests`);
+      const response = await fetch(`${import.meta.env.URL}/api/requests`);
       const data = await response.json();
       setBooks(data);
     } catch (err) {
